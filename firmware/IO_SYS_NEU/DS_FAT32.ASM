@@ -35,7 +35,7 @@ HEADER_COPY             EQU 0EBA9h
 DIRECTORY_ENTRY_COPY    EQU 0EBB2h
 
 CMD_SAVE:
-        LD      HL,(00016h)
+        JP      0EBD2h                  ; relocate monitor stack, then D303h
         INC     HL
         INC     HL
         INC     HL
@@ -45,9 +45,11 @@ CMD_SAVE:
         CALL    PARSE_HEX_WORD
         JP      C,BAD_PARAMETERS
         LD      (SAVE_END),DE
-        LD      HL,0
-        LD      (SAVE_START),HL
+        ; Keep HL at the command text and preserve the original code size:
+        ; @DK calls WRITE_WORK_LBA at the fixed address D717h.
         XOR     A
+        LD      (SAVE_START),A
+        LD      (SAVE_START+1),A
         LD      (START_PRESENT),A
         CALL    PARSE_HEX_WORD
         JR      C,.NO_START
@@ -63,15 +65,17 @@ CMD_SAVE:
         JP      NZ,BAD_PARAMETERS
 
 .RANGE:
+        ; Allow 0000h..D000h inclusive. Keep instruction sizes unchanged:
+        ; @DK uses the fixed WRITE_WORK_LBA entry point.
         ; The saved RAM range is always checked. The start address is checked
         ; later and only for executable .COM files.
         LD      HL,(SAVE_BEGIN)
-        LD      DE,0100h
+        LD      DE,0000h
         OR      A
         SBC     HL,DE
         JP      C,BAD_PARAMETERS
         LD      HL,(SAVE_END)
-        LD      DE,0B000h
+        LD      DE,0D001h
         OR      A
         SBC     HL,DE
         JP      NC,BAD_PARAMETERS
@@ -597,6 +601,7 @@ WRITE_DIRECTORY_ENTRY:
         RET
 
 WRITE_WORK_LBA:
+        ASSERT  WRITE_WORK_LBA == 0D717h ; fixed entry point used by @DK
 .READY:IN      A,(15h)
         BIT     1,A
         SCF

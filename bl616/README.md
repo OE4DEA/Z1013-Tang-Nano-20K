@@ -1,6 +1,8 @@
 # BL616: USB-Tastatur und Firmware-Installation
 
-[Zur Projektübersicht](../README.md) · [Firmware-Status](firmware/README.md) · [Recovery](recovery/README.md)
+[Zur Projektübersicht](../README.md) · [Schnellstart für v3923](SCHNELLSTART.md) · [Firmware-Status](firmware/README.md) · [Recovery](recovery/README.md)
+
+Wer ein Tang Nano 20K v3923 mit der vorhandenen USB-Tastatur-Version einrichten möchte, findet die gekürzten und direkt ausführbaren Schritte im [Schnellstart für macOS](SCHNELLSTART.md).
 
 ## Boardrevision und Veröffentlichungsstatus
 

@@ -49,7 +49,7 @@ architecture Behavioral of ps2_keyboard is
     signal ps2_data_filtered_s : std_logic := '1';
     signal ps2_clk_previous_s : std_logic := '1';
 
-    signal bit_count_s : integer range 0 to 10 := 0;
+    signal bit_count_s : integer range 0 to 38 := 0;
     signal receive_data_s : std_logic_vector(7 downto 0) := (others => '0');
     signal receive_parity_s : std_logic := '0';
     signal parity_bit_s : std_logic := '0';
@@ -78,7 +78,7 @@ architecture Behavioral of ps2_keyboard is
     signal caps_key_down_s : std_logic := '0';
     signal reset_request_s : std_logic := '0';
 
-    -- F1/F2 are local keyboard macros. The original monitor scans empty
+    -- F1/F2/F3 are local keyboard macros. The original monitor scans empty
     -- rows in polling loops and can need tens of milliseconds at 1 MHz.
     -- Every phase lasts 40 ms, including Shift+2 and the following Shift-only
     -- phase. Keep Shift held after releasing 2: the scanner first remembers
@@ -86,11 +86,13 @@ architecture Behavioral of ps2_keyboard is
     -- turn the pending @ into 2. Verified against the unmodified FD20 scanner.
     constant MACRO_PHASE_LAST_C : unsigned(21 downto 0) :=
         to_unsigned(2969999, 22);
-    signal macro_phase_s : integer range 0 to 10 := 0;
+    signal macro_phase_s : integer range 0 to 38 := 0;
     signal macro_counter_s : unsigned(21 downto 0) := (others => '0');
-    signal macro_is_dl_s : std_logic := '0';
+    type macro_command_t is (MACRO_DD, MACRO_DL, MACRO_DOS);
+    signal macro_command_s : macro_command_t := MACRO_DD;
     signal f1_down_s : std_logic := '0';
     signal f2_down_s : std_logic := '0';
+    signal f3_down_s : std_logic := '0';
     signal cpu_speed_s : std_logic_vector(1 downto 0) := "11";
 
 begin
@@ -236,9 +238,10 @@ begin
             reset_request_s <= '0';
             macro_phase_s <= 0;
             macro_counter_s <= (others => '0');
-            macro_is_dl_s <= '0';
+            macro_command_s <= MACRO_DD;
             f1_down_s <= '0';
             f2_down_s <= '0';
+            f3_down_s <= '0';
             cpu_speed_s <= "11";
             O_speed_changed <= '0';
         elsif rising_edge(I_clk) then
@@ -250,7 +253,8 @@ begin
             if macro_phase_s /= 0 then
                 if macro_counter_s = MACRO_PHASE_LAST_C then
                     macro_counter_s <= (others => '0');
-                    if macro_phase_s = 10 then
+                    if (macro_phase_s = 10 and macro_command_s /= MACRO_DOS) or
+                       macro_phase_s = 38 then
                         macro_phase_s <= 0;
                     else
                         macro_phase_s <= macro_phase_s + 1;
@@ -278,6 +282,7 @@ begin
                     macro_counter_s <= (others => '0');
                     f1_down_s <= '0';
                     f2_down_s <= '0';
+                    f3_down_s <= '0';
                 elsif scan_code_s = x"E0" then
                     extended_pending_s <= '1';
                 elsif scan_code_s = x"F0" then
@@ -338,7 +343,7 @@ begin
                         elsif f1_down_s = '0' then
                             f1_down_s <= '1';
                             if macro_phase_s = 0 then
-                                macro_is_dl_s <= '0';
+                                macro_command_s <= MACRO_DD;
                                 macro_phase_s <= 1;
                                 macro_counter_s <= (others => '0');
                             end if;
@@ -350,7 +355,20 @@ begin
                         elsif f2_down_s = '0' then
                             f2_down_s <= '1';
                             if macro_phase_s = 0 then
-                                macro_is_dl_s <= '1';
+                                macro_command_s <= MACRO_DL;
+                                macro_phase_s <= 1;
+                                macro_counter_s <= (others => '0');
+                            end if;
+                        end if;
+                    elsif extended_pending_s = '0' and scan_code_s = x"04" then
+                        -- F3: type @DL + Enter, wait for the filename prompt,
+                        -- then type DOS.COM + Enter to load and auto-start it.
+                        if break_pending_s = '1' then
+                            f3_down_s <= '0';
+                        elsif f3_down_s = '0' then
+                            f3_down_s <= '1';
+                            if macro_phase_s = 0 then
+                                macro_command_s <= MACRO_DOS;
                                 macro_phase_s <= 1;
                                 macro_counter_s <= (others => '0');
                             end if;
@@ -470,7 +488,7 @@ begin
         right_control_s,
         caps_lock_s,
         macro_phase_s,
-        macro_is_dl_s
+        macro_command_s
     )
         variable matrix_output_v : std_logic_vector(79 downto 0);
     begin
@@ -509,13 +527,23 @@ begin
                 when 5 =>
                     matrix_output_v(27) := '1'; -- D
                 when 7 =>
-                    if macro_is_dl_s = '1' then
+                    if macro_command_s /= MACRO_DD then
                         matrix_output_v(21) := '1'; -- L
                     else
                         matrix_output_v(27) := '1'; -- D
                     end if;
                 when 9 =>
                     matrix_output_v(18) := '1'; -- Enter
+                -- F3 only: phases 10..22 release all keys for 520 ms.
+                -- CMD_LOAD asks for the filename before accessing the SD card.
+                when 23 => matrix_output_v(27) := '1'; -- D
+                when 25 => matrix_output_v(38) := '1'; -- O
+                when 27 => matrix_output_v(28) := '1'; -- S
+                when 29 => matrix_output_v(4) := '1';  -- .
+                when 31 => matrix_output_v(10) := '1'; -- C
+                when 33 => matrix_output_v(38) := '1'; -- O
+                when 35 => matrix_output_v(6) := '1';  -- M
+                when 37 => matrix_output_v(18) := '1'; -- Enter
                 when others => null;
             end case;
         end if;

@@ -26,13 +26,14 @@ architecture rtl of usb_keyboard is
  signal cpu_speed     : std_logic_vector(1 downto 0) := "11";
  signal speed_changed : std_logic := '0';
 
- -- F1/F2 macro timing: 40 ms per phase at 74.25 MHz.
+ -- F1/F2/F3 macro timing: 40 ms per phase at 74.25 MHz.
  constant MACRO_PHASE_LAST_C : unsigned(21 downto 0) :=
      to_unsigned(2969999, 22);
 
- signal macro_phase   : integer range 0 to 10 := 0;
+ signal macro_phase   : integer range 0 to 38 := 0;
  signal macro_counter : unsigned(21 downto 0) := (others=>'0');
- signal macro_is_dl   : std_logic := '0';
+ type macro_command_t is (MACRO_DD, MACRO_DL, MACRO_DOS);
+ signal macro_command : macro_command_t := MACRO_DD;
 
 begin
 
@@ -62,17 +63,18 @@ begin
    speed_changed <= '0';
    macro_phase   <= 0;
    macro_counter <= (others=>'0');
-   macro_is_dl   <= '0';
+   macro_command <= MACRO_DD;
 
   elsif rising_edge(I_clk) then
    reset_request <= '0';
    speed_changed <= '0';
 
-   -- Advance an active F1/F2 macro.
+   -- Advance an active F1/F2/F3 macro.
    if macro_phase /= 0 then
     if macro_counter = MACRO_PHASE_LAST_C then
      macro_counter <= (others=>'0');
-     if macro_phase = 10 then
+     if (macro_phase = 10 and macro_command /= MACRO_DOS) or
+        macro_phase = 38 then
       macro_phase <= 0;
      else
       macro_phase <= macro_phase + 1;
@@ -100,14 +102,21 @@ begin
 
       -- F1 -> @DD + Enter
       if h=58 and pressed='1' and macro_phase=0 then
-       macro_is_dl   <= '0';
+       macro_command <= MACRO_DD;
        macro_phase   <= 1;
        macro_counter <= (others=>'0');
       end if;
 
       -- F2 -> @DL + Enter
       if h=59 and pressed='1' and macro_phase=0 then
-       macro_is_dl   <= '1';
+       macro_command <= MACRO_DL;
+       macro_phase   <= 1;
+       macro_counter <= (others=>'0');
+      end if;
+
+      -- F3 -> @DL + Enter, wait 520 ms, then DOS.COM + Enter.
+      if h=60 and pressed='1' and held(60)='0' and macro_phase=0 then
+       macro_command <= MACRO_DOS;
        macro_phase   <= 1;
        macro_counter <= (others=>'0');
       end if;
@@ -144,7 +153,7 @@ begin
  -- No synthetic PS/2 scan-code path is used here. PS/2 remains an
  -- independent input in dual_keyboard.vhd.
  ---------------------------------------------------------------------------
- process(held,caps_lock,macro_phase,macro_is_dl)
+ process(held,caps_lock,macro_phase,macro_command)
   variable m : std_logic_vector(79 downto 0);
   variable shift,altgr : boolean;
   variable symbol_active,symbol_shift : boolean;
@@ -184,13 +193,22 @@ begin
     when 5 =>
      m(27) := '1';
     when 7 =>
-     if macro_is_dl='1' then
+     if macro_command /= MACRO_DD then
       m(21) := '1';
      else
       m(27) := '1';
      end if;
     when 9 =>
      m(18) := '1';
+    -- F3 only: phases 10..22 release all keys for 520 ms.
+    when 23 => m(27) := '1'; -- D
+    when 25 => m(38) := '1'; -- O
+    when 27 => m(28) := '1'; -- S
+    when 29 => m(4)  := '1'; -- .
+    when 31 => m(10) := '1'; -- C
+    when 33 => m(38) := '1'; -- O
+    when 35 => m(6)  := '1'; -- M
+    when 37 => m(18) := '1'; -- Enter
     when others =>
      null;
    end case;

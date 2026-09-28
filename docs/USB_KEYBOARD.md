@@ -28,6 +28,7 @@ Weitere Informationen zur BL616-Funktion, zu den Signalen, zur Boardrevision v39
 - Wichtige AltGr-Zeichen sind abgebildet: `@`, `{`, `[`, `]`, `}`, `\`, `~` und `|`.
 - F1 sendet `@DD` und Enter.
 - F2 sendet `@DL` und Enter.
+- F3 sendet `@DL` und Enter, wartet 520 ms und sendet `DOS.COM` und Enter. Die vorhandene Laderoutine lädt und startet DOS.COM aus dem FAT32-Wurzelverzeichnis (gültiger Z1013-Dateikopf erforderlich).
 - F9, F10, F11 und F12 wählen 1 MHz, 2 MHz, 4 MHz und 8,25 MHz.
 - Strg+Alt+Entf löst den vorhandenen Z1013-Reset aus.
 
@@ -78,6 +79,7 @@ Further information about the BL616 role, signals, the v3923 board revision, and
 - Important AltGr characters are mapped: `@`, `{`, `[`, `]`, `}`, `\`, `~`, and `|`.
 - F1 sends `@DD` and Enter.
 - F2 sends `@DL` and Enter.
+- F3 sends `@DL` and Enter, waits 520 ms, then sends `DOS.COM` and Enter. The existing loader loads and starts DOS.COM from the FAT32 root directory (a valid Z1013 file header is required).
 - F9, F10, F11, and F12 select 1 MHz, 2 MHz, 4 MHz, and 8.25 MHz.
 - Ctrl+Alt+Delete triggers the existing Z1013 reset.
 

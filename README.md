@@ -29,6 +29,7 @@ FPGA-Nachbau eines erweiterten Z1013 für das Sipeed Tang Nano 20K. Dieser Stand
 |---|---|
 | F1 | `@DD` und Enter – Verzeichnis anzeigen |
 | F2 | `@DL` und Enter – Datei laden |
+| F3 | `@DL` + Enter, dann `DOS.COM` + Enter – DOS laden und starten |
 | F9 | CPU-Takt 1 MHz |
 | F10 | CPU-Takt 2 MHz |
 | F11 | CPU-Takt 4 MHz |
@@ -57,7 +58,7 @@ Eine genauere Beschreibung der BL616-Companion-Anpassung steht in [docs/BL616_CO
 ## Einfacher Schnellstart
 
 1. Eine microSD-Karte mit MBR-Partitionstabelle und FAT32 formatieren.
-2. `PACMAN.COM`, `KIKSTART.COM` und/oder `PUNIVERS.COM` aus `programs/` in das Wurzelverzeichnis der Karte kopieren. Die Dateien sind bereits fertig vorbereitet.
+2. Gewünschte `.COM`-Programme aus `programs/`, beispielsweise `PACMAN.COM`, `KIKSTART.COM`, `PUNIVERS.COM` oder `TERTRIS.COM`, in das Wurzelverzeichnis der Karte kopieren. Die Dateien sind bereits fertig vorbereitet.
 3. PS/2-Tastatur über die in [docs/HARDWARE.md](docs/HARDWARE.md) beschriebene Pegelanpassung anschließen.
 4. Den fertigen Bitstream [`release/z1013.fs`](release/z1013.fs) mit Gowin Programmer auf das Tang Nano 20K übertragen. Für die USB-Tastatur-Version stattdessen [`release/z1013_usb_v3923.fs`](release/z1013_usb_v3923.fs) verwenden und zusätzlich die Hinweise in [docs/USB_KEYBOARD.md](docs/USB_KEYBOARD.md) beachten. Zum Ausprobieren `SRAM Mode` verwenden; für einen dauerhaften Start `External Flash Mode` wählen und den Flash auf dem Board programmieren.
 5. Nach dem Start F1 drücken, um das Kartenverzeichnis zu sehen.
@@ -71,10 +72,12 @@ Zusätzlich: [DEMO.COM – Concept-Demo](programs/DEMO/README.md) mit farbigem L
 - `programs/PACMAN/PACMAN.COM`
 - `programs/PUNIVERS/PUNIVERS.COM` – stabile, getestete Fassung
 - `programs/KIKSTART/KIKSTART.COM`
+- [`programs/TERTRIS/TERTRIS.COM`](programs/TERTRIS/README.md) – Fallsteinspiel, veröffentlichte Version 2
+- [`programs/TBDOS/`](programs/TBDOS/README.md) – Zwei-Fenster-Dateiverwaltung; Fortführung eines vor etwa 26 Jahren begonnenen Z80-Projekts
 
-Die drei `.COM`-Dateien besitzen bereits den geprüften 9-Byte-Z1013-Kopf `@DD`. Anfangsadresse, Endadresse und Startadresse sind enthalten. Die Dateien können unverändert direkt auf die FAT32-Karte kopiert werden. Die jeweils zugehörigen Assemblerquellen und Grafikelemente liegen daneben im Verzeichnis `source/`.
+Die vier aufgeführten `.COM`-Dateien besitzen bereits den geprüften 9-Byte-Z1013-Kopf `@DD`. Anfangsadresse, Endadresse und Startadresse sind enthalten. Die Dateien können unverändert direkt auf die FAT32-Karte kopiert werden. Bei PACMAN, KIKSTART und PUNIVERS liegen die zugehörigen Assemblerquellen und Grafikelemente daneben im Verzeichnis `source/`.
 
-PACMAN, KIKSTART und PUNIVERS wurden vollständig von Tobias Bremer für den Z1013 entwickelt. Programmcode, Darstellung, Grafik, Sound und Ausführung sind eigene Arbeiten. Die Programme sind lediglich an historische Spielideen angelehnt und wurden für dieses Projekt neu umgesetzt. Weitere Angaben stehen in [programs/README.md](programs/README.md).
+Ich habe PACMAN, KIKSTART und PUNIVERS vollständig für den Z1013 entwickelt. Programmcode, Darstellung, Grafik, Sound und Ausführung sind meine eigenen Arbeiten. Die Programme sind lediglich an historische Spielideen angelehnt und wurden von mir für dieses Projekt neu umgesetzt. Weitere Angaben stehen in [programs/README.md](programs/README.md).
 
 ## FAT32-Werkzeug @DS
 
@@ -82,7 +85,7 @@ Unter `tools/at-ds/` liegen ein Universalprogramm für macOS, eine x86-Fassung f
 
 ## Autor und Projektseite
 
-Entwicklung: Tobias Bremer
+Ich bin Tobias Bremer und entwickle dieses Projekt.
 
 Weitere Informationen, frühere Z80-/Z180-Eigenbauten und zusätzliche Dokumentation: [qlb-harz.de/Z80](https://qlb-harz.de/Z80/)
 
@@ -119,6 +122,7 @@ This project recreates an enhanced Z1013 computer on the Sipeed Tang Nano 20K FP
 |---|---|
 | F1 | Enter `@DD` and press Enter – show the directory |
 | F2 | Enter `@DL` and press Enter – load a file |
+| F3 | Type `@DL` + Enter, then `DOS.COM` + Enter – load and start DOS |
 | F9 | Set CPU speed to 1 MHz |
 | F10 | Set CPU speed to 2 MHz |
 | F11 | Set CPU speed to 4 MHz |
@@ -145,7 +149,7 @@ A more detailed description of the BL616 companion adaptation is available in [d
 ### Easy start
 
 1. Format a microSD card with an MBR partition table and a FAT32 partition.
-2. Copy `PACMAN.COM`, `KIKSTART.COM`, and/or `PUNIVERS.COM` from `programs/` to the root directory of the card. These files are ready to use.
+2. Copy the desired `.COM` programs from `programs/`, such as `PACMAN.COM`, `KIKSTART.COM`, `PUNIVERS.COM`, or `TERTRIS.COM`, to the root directory of the card. These files are ready to use.
 3. Connect a PS/2 keyboard through the level adapter described in [docs/HARDWARE.md](docs/HARDWARE.md).
 4. Program [`release/z1013.fs`](release/z1013.fs) onto the Tang Nano 20K with Gowin Programmer. For the USB keyboard version, use [`release/z1013_usb_v3923.fs`](release/z1013_usb_v3923.fs) instead and also follow [docs/USB_KEYBOARD.md](docs/USB_KEYBOARD.md). Use `SRAM Mode` for a temporary test, or select `External Flash Mode` and program the on-board flash to keep the system after power-off.
 5. Start the board and press F1 to display the card directory.
@@ -159,10 +163,12 @@ Also available: [DEMO.COM – Concept demo](programs/DEMO/README.md), with color
 - `programs/PACMAN/PACMAN.COM`
 - `programs/PUNIVERS/PUNIVERS.COM` – stable, tested version
 - `programs/KIKSTART/KIKSTART.COM`
+- [`programs/TERTRIS/TERTRIS.COM`](programs/TERTRIS/README.md) – falling-block game, published version 2
+- [`programs/TBDOS/`](programs/TBDOS/README.md) – dual-panel file manager continuing a Z80 project started about 26 years ago
 
-All three `.COM` files already contain a verified 9-byte Z1013 `@DD` header with load, end, and start addresses. Copy them unchanged to the FAT32 card. Their assembly source code and graphics are stored in the adjacent `source/` directories.
+All four listed `.COM` files already contain a verified 9-byte Z1013 `@DD` header with load, end, and start addresses. Copy them unchanged to the FAT32 card. For PACMAN, KIKSTART, and PUNIVERS, the assembly source code and graphics are stored in the adjacent `source/` directories.
 
-PACMAN, KIKSTART, and PUNIVERS were developed entirely by Tobias Bremer for the Z1013. Their code, presentation, graphics, sound, and implementation are original work. They are inspired only by historical game ideas and were newly implemented for this project. See [programs/README.md](programs/README.md).
+I developed PACMAN, KIKSTART, and PUNIVERS entirely for the Z1013. Their code, presentation, graphics, sound, and implementation are my original work. They are inspired only by historical game ideas, and I newly implemented them for this project. See [programs/README.md](programs/README.md).
 
 ### FAT32 tool `@DS`
 
@@ -170,7 +176,7 @@ The `tools/at-ds/` directory contains a universal macOS program, a Windows x86 b
 
 ### Author and project website
 
-Development: Tobias Bremer
+I am Tobias Bremer, the developer of this project.
 
 More information, earlier Z80/Z180 home-built computers, and additional documentation: [qlb-harz.de/Z80](https://qlb-harz.de/Z80/)
 

@@ -759,9 +759,11 @@ begin
         unsigned(z80_addr_s) <= to_unsigned(16#E2FF#, 16)
         else '0';
 
-    -- Read-only test aliases outside both text and full-graphics VRAM.
+    -- Read-only test aliases D001h..D1FFh. D000h is ordinary RAM so
+    -- @DS/@DL can save and restore the inclusive range 0000h..D000h.
+    -- The full sector buffer, including byte zero, remains at E100h.
     z80_sd_diag_buffer_select_s <= '1' when
-        unsigned(z80_addr_s) >= to_unsigned(16#D000#, 16) and
+        unsigned(z80_addr_s) >= to_unsigned(16#D001#, 16) and
         unsigned(z80_addr_s) <= to_unsigned(16#D1FF#, 16)
         else '0';
 
