@@ -48,7 +48,7 @@ vollständiger Snapshot mit allen Speicherbänken, CPU- und Hardware-Zuständen.
 
 ## Mitgelieferte Spiele
 
-`PACMAN.COM`, `KIKSTART.COM` und `PUNIVERS.COM` besitzen bereits einen gültigen 9-Byte-Kopf. Sie werden unverändert in das Wurzelverzeichnis der FAT32-Karte kopiert. Das Werkzeug `@DS` darf auf diese fertigen Dateien nicht noch einmal angewendet werden, weil dadurch ein zweiter Kopf entstehen würde.
+`PACMAN.COM`, `KIKSTART.COM`, `PUNIVERS.COM` und `TERTRIS.COM` besitzen bereits einen gültigen 9-Byte-Kopf. Sie werden unverändert in das Wurzelverzeichnis der FAT32-Karte kopiert. Das Werkzeug `@DS` darf auf diese fertigen Dateien nicht noch einmal angewendet werden, weil dadurch ein zweiter Kopf entstehen würde.
 
 ## TBDOS
 
@@ -100,7 +100,7 @@ registers or hardware state.
 
 ### Included games
 
-`PACMAN.COM`, `KIKSTART.COM`, and `PUNIVERS.COM` already contain a valid 9-byte header. Copy them unchanged to the root directory of the FAT32 card. Do not process these ready-made files with the `@DS` tool again, because that would add a second header.
+`PACMAN.COM`, `KIKSTART.COM`, `PUNIVERS.COM`, and `TERTRIS.COM` already contain a valid 9-byte header. Copy them unchanged to the root directory of the FAT32 card. Do not process these ready-made files with the `@DS` tool again, because that would add a second header.
 
 ### TBDOS
 
