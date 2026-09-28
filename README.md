@@ -76,7 +76,7 @@ Zusätzlich: [DEMO.COM – Concept-Demo](programs/DEMO/README.md) mit farbigem L
 
 Die drei `.COM`-Dateien besitzen bereits den geprüften 9-Byte-Z1013-Kopf `@DD`. Anfangsadresse, Endadresse und Startadresse sind enthalten. Die Dateien können unverändert direkt auf die FAT32-Karte kopiert werden. Die jeweils zugehörigen Assemblerquellen und Grafikelemente liegen daneben im Verzeichnis `source/`.
 
-PACMAN, KIKSTART und PUNIVERS wurden vollständig von Tobias Bremer für den Z1013 entwickelt. Programmcode, Darstellung, Grafik, Sound und Ausführung sind eigene Arbeiten. Die Programme sind lediglich an historische Spielideen angelehnt und wurden für dieses Projekt neu umgesetzt. Weitere Angaben stehen in [programs/README.md](programs/README.md).
+Ich habe PACMAN, KIKSTART und PUNIVERS vollständig für den Z1013 entwickelt. Programmcode, Darstellung, Grafik, Sound und Ausführung sind meine eigenen Arbeiten. Die Programme sind lediglich an historische Spielideen angelehnt und wurden von mir für dieses Projekt neu umgesetzt. Weitere Angaben stehen in [programs/README.md](programs/README.md).
 
 ## FAT32-Werkzeug @DS
 
@@ -84,7 +84,7 @@ Unter `tools/at-ds/` liegen ein Universalprogramm für macOS, eine x86-Fassung f
 
 ## Autor und Projektseite
 
-Entwicklung: Tobias Bremer
+Ich bin Tobias Bremer und entwickle dieses Projekt.
 
 Weitere Informationen, frühere Z80-/Z180-Eigenbauten und zusätzliche Dokumentation: [qlb-harz.de/Z80](https://qlb-harz.de/Z80/)
 
@@ -166,7 +166,7 @@ Also available: [DEMO.COM – Concept demo](programs/DEMO/README.md), with color
 
 All three `.COM` files already contain a verified 9-byte Z1013 `@DD` header with load, end, and start addresses. Copy them unchanged to the FAT32 card. Their assembly source code and graphics are stored in the adjacent `source/` directories.
 
-PACMAN, KIKSTART, and PUNIVERS were developed entirely by Tobias Bremer for the Z1013. Their code, presentation, graphics, sound, and implementation are original work. They are inspired only by historical game ideas and were newly implemented for this project. See [programs/README.md](programs/README.md).
+I developed PACMAN, KIKSTART, and PUNIVERS entirely for the Z1013. Their code, presentation, graphics, sound, and implementation are my original work. They are inspired only by historical game ideas, and I newly implemented them for this project. See [programs/README.md](programs/README.md).
 
 ### FAT32 tool `@DS`
 
@@ -174,7 +174,7 @@ The `tools/at-ds/` directory contains a universal macOS program, a Windows x86 b
 
 ### Author and project website
 
-Development: Tobias Bremer
+I am Tobias Bremer, the developer of this project.
 
 More information, earlier Z80/Z180 home-built computers, and additional documentation: [qlb-harz.de/Z80](https://qlb-harz.de/Z80/)
 

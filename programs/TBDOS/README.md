@@ -6,9 +6,9 @@
 
 TBDOS ist eine Dateiverwaltung für den Z1013 mit einer an klassische Zwei-Fenster-Dateimanager wie den Norton Commander angelehnten Bedienung. Das Programm zeigt zwei Verzeichnispanele und bietet Funktionen zum Anzeigen und Starten von Dateien sowie weitere Werkzeuge über Menüs und Erweiterungsmodule.
 
-Die Geschichte von TBDOS begann vor etwa 26 Jahren. Tobias Bremer entwickelte damals eine erste Fassung für den Z80. Für dieses FPGA-Z1013-Projekt wurde die frühere Idee wieder aufgenommen, technisch weitergeführt und an die heutige FAT32-Umgebung des Z1013 angepasst. Die hier veröffentlichte Fassung ist damit die Fortsetzung eines eigenen langjährigen Z80-Projekts.
+Die Geschichte von TBDOS begann für mich vor etwa 26 Jahren. Damals entwickelte ich eine erste Fassung für den Z80. Für dieses FPGA-Z1013-Projekt habe ich die frühere Idee wieder aufgenommen, technisch weitergeführt und an die heutige FAT32-Umgebung des Z1013 angepasst. Die hier veröffentlichte Fassung ist damit die Fortsetzung meines langjährigen Z80-Projekts.
 
-TBDOS ist ein eigenständiger Nachbau. Die Bedienidee ist von historischen Zwei-Fenster-Dateimanagern inspiriert; der enthaltene Programmcode und die konkrete Umsetzung stammen von Tobias Bremer.
+TBDOS ist mein eigenständiger Nachbau. Bei der Bedienidee habe ich mich von historischen Zwei-Fenster-Dateimanagern inspirieren lassen. Der enthaltene Programmcode und die konkrete Umsetzung stammen von mir.
 
 ## Installation auf der SD-Karte
 
@@ -42,9 +42,9 @@ Copyright © 2026 Tobias Bremer. Der Lizenzstatus richtet sich nach [`../../LICE
 
 TBDOS is a file manager for the Z1013 with an interface inspired by classic dual-panel file managers such as Norton Commander. It displays two directory panels and provides functions for viewing and starting files, together with additional menu tools and extension modules.
 
-The history of TBDOS began about 26 years ago, when Tobias Bremer developed its first version for the Z80. For this FPGA Z1013 project, he returned to that earlier idea, continued its development, and adapted it to the Z1013 FAT32 environment used today. This release therefore continues a personal Z80 project with a long history.
+The history of TBDOS began for me about 26 years ago, when I developed its first version for the Z80. For this FPGA Z1013 project, I returned to that earlier idea, continued its development, and adapted it to the Z1013 FAT32 environment used today. This release therefore continues my long-running Z80 project.
 
-TBDOS is an independent reimplementation. Its operating concept is inspired by historical dual-panel file managers; the included program code and its concrete implementation were created by Tobias Bremer.
+TBDOS is my independent reimplementation. Its operating concept is inspired by historical dual-panel file managers. I created the included program code and its concrete implementation.
 
 ## Installing it on the SD card
 

@@ -4,7 +4,7 @@
 
 ## Deutsch
 
-[openFPGALoader](https://trabucayre.github.io/openFPGALoader/) ist eine freie Alternative zu Gowin Programmer. Damit lässt sich der fertige Bitstream `release/z1013.fs` über die USB-Verbindung auf das Tang Nano 20K übertragen. Für die USB-Tastatur-Version kann stattdessen `release/z1013_usb_v3923.fs` verwendet werden. Eine ähnliche Anleitung mit Abbildungen steht auf der [Projektseite von Tobias Bremer](https://qlb-harz.de/Z80/).
+[openFPGALoader](https://trabucayre.github.io/openFPGALoader/) ist eine freie Alternative zu Gowin Programmer. Damit lässt sich der fertige Bitstream `release/z1013.fs` über die USB-Verbindung auf das Tang Nano 20K übertragen. Für die USB-Tastatur-Version kann stattdessen `release/z1013_usb_v3923.fs` verwendet werden. Eine ähnliche Anleitung mit Abbildungen habe ich auf [meiner Projektseite](https://qlb-harz.de/Z80/) veröffentlicht.
 
 ### Installation
 
@@ -58,7 +58,7 @@ Dieses Projekt verwendet eine echte FAT32-microSD-Karte. Die Spiele werden auf d
 
 ## English
 
-[openFPGALoader](https://trabucayre.github.io/openFPGALoader/) is a free alternative to Gowin Programmer. It can transfer the ready-made `release/z1013.fs` bitstream to the Tang Nano 20K through USB. For the USB keyboard version, use `release/z1013_usb_v3923.fs` instead. A similar illustrated guide is available on [Tobias Bremer's project website](https://qlb-harz.de/Z80/).
+[openFPGALoader](https://trabucayre.github.io/openFPGALoader/) is a free alternative to Gowin Programmer. It can transfer the ready-made `release/z1013.fs` bitstream to the Tang Nano 20K through USB. For the USB keyboard version, use `release/z1013_usb_v3923.fs` instead. I have published a similar illustrated guide on [my project website](https://qlb-harz.de/Z80/).
 
 ### Installation
 
