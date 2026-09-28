@@ -2,6 +2,8 @@
 
 Zusätzlich zu den drei unten beschriebenen Spielen gibt es [DEMO.COM](DEMO/README.md), das Concept-Demo mit bereits enthaltenem 9-Byte-Dateikopf. Seine Musikherkunft und sein Prüfstand sind separat dokumentiert.
 
+[TBDOS](TBDOS/README.md) ist Tobias Bremers weiterentwickelte Z1013-Dateiverwaltung mit klassischer Zwei-Fenster-Bedienung. Das Projekt geht auf seine erste Z80-Fassung von vor etwa 26 Jahren zurück. Für die Installation kommt `DOS.COM` in das Wurzelverzeichnis der SD-Karte; die Dateien `.BIN` und `.OVL` gehören in das Verzeichnis `/DOS/`.
+
 Copyright © Tobias Bremer.
 
 Die Programme PACMAN, KIKSTART und PUNIVERS wurden vollständig von Tobias Bremer für den Z1013 entwickelt und neu umgesetzt. Dies gilt für sämtliche enthaltenen Bestandteile:
@@ -25,6 +27,8 @@ Die mitgelieferten Dateien `PACMAN.COM`, `KIKSTART.COM` und `PUNIVERS.COM` besit
 # Programs for the Z1013
 
 In addition to the three games described below, [DEMO.COM](DEMO/README.md) provides the Concept demo with its 9-byte header already included. Music credits and verification status are documented separately.
+
+[TBDOS](TBDOS/README.md) is Tobias Bremer's continued Z1013 file-manager project with a classic dual-panel interface. It goes back to his first Z80 version written about 26 years ago. To install it, place `DOS.COM` in the SD-card root and the `.BIN` and `.OVL` files in `/DOS/`.
 
 Copyright © Tobias Bremer.
 

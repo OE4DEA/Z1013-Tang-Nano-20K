@@ -29,6 +29,7 @@ FPGA-Nachbau eines erweiterten Z1013 für das Sipeed Tang Nano 20K. Dieser Stand
 |---|---|
 | F1 | `@DD` und Enter – Verzeichnis anzeigen |
 | F2 | `@DL` und Enter – Datei laden |
+| F3 | `@DL` + Enter, dann `DOS.COM` + Enter – DOS laden und starten |
 | F9 | CPU-Takt 1 MHz |
 | F10 | CPU-Takt 2 MHz |
 | F11 | CPU-Takt 4 MHz |
@@ -71,6 +72,7 @@ Zusätzlich: [DEMO.COM – Concept-Demo](programs/DEMO/README.md) mit farbigem L
 - `programs/PACMAN/PACMAN.COM`
 - `programs/PUNIVERS/PUNIVERS.COM` – stabile, getestete Fassung
 - `programs/KIKSTART/KIKSTART.COM`
+- [`programs/TBDOS/`](programs/TBDOS/README.md) – Zwei-Fenster-Dateiverwaltung; Fortführung eines vor etwa 26 Jahren begonnenen Z80-Projekts
 
 Die drei `.COM`-Dateien besitzen bereits den geprüften 9-Byte-Z1013-Kopf `@DD`. Anfangsadresse, Endadresse und Startadresse sind enthalten. Die Dateien können unverändert direkt auf die FAT32-Karte kopiert werden. Die jeweils zugehörigen Assemblerquellen und Grafikelemente liegen daneben im Verzeichnis `source/`.
 
@@ -119,6 +121,7 @@ This project recreates an enhanced Z1013 computer on the Sipeed Tang Nano 20K FP
 |---|---|
 | F1 | Enter `@DD` and press Enter – show the directory |
 | F2 | Enter `@DL` and press Enter – load a file |
+| F3 | Type `@DL` + Enter, then `DOS.COM` + Enter – load and start DOS |
 | F9 | Set CPU speed to 1 MHz |
 | F10 | Set CPU speed to 2 MHz |
 | F11 | Set CPU speed to 4 MHz |
@@ -159,6 +162,7 @@ Also available: [DEMO.COM – Concept demo](programs/DEMO/README.md), with color
 - `programs/PACMAN/PACMAN.COM`
 - `programs/PUNIVERS/PUNIVERS.COM` – stable, tested version
 - `programs/KIKSTART/KIKSTART.COM`
+- [`programs/TBDOS/`](programs/TBDOS/README.md) – dual-panel file manager continuing a Z80 project started about 26 years ago
 
 All three `.COM` files already contain a verified 9-byte Z1013 `@DD` header with load, end, and start addresses. Copy them unchanged to the FAT32 card. Their assembly source code and graphics are stored in the adjacent `source/` directories.
 

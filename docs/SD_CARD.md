@@ -33,6 +33,10 @@ Die Verzeichnisanzeige pausiert passend zum 32×32-Zeichenbild und kann mit Ente
 
 `PACMAN.COM`, `KIKSTART.COM` und `PUNIVERS.COM` besitzen bereits einen gültigen 9-Byte-Kopf. Sie werden unverändert in das Wurzelverzeichnis der FAT32-Karte kopiert. Das Werkzeug `@DS` darf auf diese fertigen Dateien nicht noch einmal angewendet werden, weil dadurch ein zweiter Kopf entstehen würde.
 
+## TBDOS
+
+Für TBDOS wird `programs/TBDOS/DOS.COM` in das Wurzelverzeichnis der Karte kopiert. Die übrigen Dateien aus `programs/TBDOS/` mit den Endungen `.BIN` und `.OVL` müssen im Verzeichnis `/DOS/` auf der Karte liegen. Die vollständige Anleitung steht in [programs/TBDOS/README.md](../programs/TBDOS/README.md).
+
 ---
 
 ## English
@@ -65,3 +69,7 @@ The directory display pauses to fit the 32 × 32 character screen. Press Enter t
 ### Included games
 
 `PACMAN.COM`, `KIKSTART.COM`, and `PUNIVERS.COM` already contain a valid 9-byte header. Copy them unchanged to the root directory of the FAT32 card. Do not process these ready-made files with the `@DS` tool again, because that would add a second header.
+
+### TBDOS
+
+For TBDOS, copy `programs/TBDOS/DOS.COM` to the card root. The remaining `.BIN` and `.OVL` files from `programs/TBDOS/` must be stored in the card's `/DOS/` directory. See [programs/TBDOS/README.md](../programs/TBDOS/README.md) for the complete instructions.
