@@ -61,6 +61,7 @@ architecture rtl of usb_keyboard is
  when 57 => return to_unsigned(88,9);
  when 58 => return to_unsigned(5,9);
  when 59 => return to_unsigned(6,9);
+ when 60 => return to_unsigned(4,9); -- F3 -> Set-2 04h
  when 66 => return to_unsigned(1,9);
  when 67 => return to_unsigned(9,9);
  when 68 => return to_unsigned(120,9);

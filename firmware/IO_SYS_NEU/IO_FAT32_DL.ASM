@@ -105,7 +105,7 @@ CMD_LOAD:
         JR      Z,MSG_FILE_NOT_FOUND
         JP      MSG_SD_READ_ERROR
 .FOUND:
-        CALL    LOAD_FOUND_FILE
+        CALL    SAFE_LOAD_FILE
         JR      NC,.START
         CP      2
         JP      Z,MSG_SD_READ_ERROR
@@ -674,15 +674,17 @@ LOAD_FOUND_FILE:
         SCF
         RET
 .VALID_HEADER:
+        ; Match @DS: 0000h..D000h inclusive. Preserve instruction sizes so
+        ; the absolute IO.SYS entry points used by @DS/@DK remain unchanged.
         LD      HL,(0E103h)
         LD      (LOAD_DEST),HL
-        LD      DE,0100h
+        LD      DE,0000h
         OR      A
         SBC     HL,DE
         JR      C,.BAD_RANGE
         LD      HL,(0E105h)
         LD      (LOAD_END),HL
-        LD      DE,0B000h
+        LD      DE,0D001h
         OR      A
         SBC     HL,DE
         JR      NC,.BAD_RANGE
@@ -1142,6 +1144,34 @@ FIRST_FILE_SECTOR:      DB 0
 FILE_SECTOR_IN_CLUSTER: DB 0
 HEADER_COPY:            DS 9,0
 DIRECTORY_ENTRY_COPY:   DS 32,0
+
+; The monitor uses a stack below 0100h. Move its live page to DF00h before
+; @DS/@DL touch low memory. Return addresses stay valid; the original monitor
+; resets SP to 00B0h on its next command loop. DF00h..DFFFh is outside the
+; allowed payload range and below the E100h sector buffer.
+SAFE_SAVE_ENTRY:
+        ASSERT  SAFE_SAVE_ENTRY == 0EBD2h
+        CALL    USE_HIGH_MONITOR_STACK
+        LD      HL,(00016h)             ; displaced instruction at CMD_SAVE
+        JP      0D303h
+SAFE_LOAD_FILE:
+        CALL    USE_HIGH_MONITOR_STACK
+        JP      LOAD_FOUND_FILE
+USE_HIGH_MONITOR_STACK:
+        LD      HL,0
+        ADD     HL,SP
+        LD      A,H
+        OR      A
+        RET     NZ                      ; already outside the monitor page
+        LD      A,L
+        LD      HL,0
+        LD      DE,0DF00h
+        LD      BC,0100h
+        LDIR
+        LD      L,A
+        LD      H,0DFh
+        LD      SP,HL
+        RET
 
 IO_END:
         ASSERT  IO_END <= 0EC00h
